@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 @Service
 public class RollDiceServiceImpl implements RollDiceService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RollDiceServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RollDiceServiceImpl.class);
 
     @Autowired
     private RollDiceRepository rollDiceRepository;
@@ -32,7 +32,7 @@ public class RollDiceServiceImpl implements RollDiceService {
 
     @Override
     public List<RollDiceDTO> getSumPerSimulations(Integer noOfDices, Integer noOfSlides, Integer noOfRolls) {
-        logger.debug("getSumPerSimulations method called with: no of dices {}, no of slides {}, no of rolls {} ",noOfDices,noOfSlides,noOfRolls);
+        LOGGER.debug("getSumPerSimulations method called with: no of dices {}, no of slides {}, no of rolls {} ",noOfDices,noOfSlides,noOfRolls);
         Map<Integer, Long> result = IntStream.range(0, noOfRolls).boxed()
                 .map(sum -> getDicesSum(noOfDices, noOfSlides))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
@@ -44,7 +44,7 @@ public class RollDiceServiceImpl implements RollDiceService {
 
     private void saveSimulation(Integer noOfRolls,Integer noOfDices, Integer noOfSlides, List<RollDiceDTO> results) {
         Simulation simulation = simulationService.saveSimulation(noOfRolls, noOfDices,noOfSlides);
-        logger.debug("Simulation saved {} ",simulation.toString());
+        LOGGER.debug("Simulation saved {} ",simulation.toString());
         rollDiceRepository.saveAll(results.stream().map(dto->new RollDice(dto.getSumOfDices(),dto.getOccurrenceNo(),simulation)).collect(Collectors.toSet()));
     }
 

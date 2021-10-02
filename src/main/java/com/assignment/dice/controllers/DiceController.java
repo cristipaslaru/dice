@@ -23,11 +23,11 @@ public class DiceController {
     @Autowired
     private RollDiceService rollDiceService;
 
-    private static final Logger logger = LoggerFactory.getLogger(DiceController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiceController.class);
 
     @GetMapping(value = "roll-dice")
     public ResponseEntity<List<RollDiceDTO>> getSumPerSimulations() {
-        logger.info("roll-dice API called");
+        LOGGER.debug("roll-dice API called");
         List<RollDiceDTO> results = rollDiceService.getSumPerSimulations(3, 6, 100);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
@@ -36,7 +36,7 @@ public class DiceController {
     public ResponseEntity<List<RollDiceDTO>> getSumPerSimulationsWithQueryParam(@RequestParam @Min(1) Integer noOfDices,
                                                                           @RequestParam @Min(4) @Max(6) Integer noOfSlides,
                                                                           @RequestParam @Min(1) Integer noOfRolls) {
-        logger.info("roll-dice/dynamic API called with: no of dices {}, no of slides {}, no of rolls {} ",noOfDices,noOfSlides,noOfRolls);
+        LOGGER.debug("roll-dice/dynamic API called with: no of dices {}, no of slides {}, no of rolls {} ",noOfDices,noOfSlides,noOfRolls);
         List<RollDiceDTO> results = rollDiceService.getSumPerSimulations(noOfDices, noOfSlides, noOfRolls);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }

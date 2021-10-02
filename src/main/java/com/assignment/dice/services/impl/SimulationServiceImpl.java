@@ -5,6 +5,8 @@ import com.assignment.dice.dtos.DistributionDTO;
 import com.assignment.dice.dtos.SimulationDTO;
 import com.assignment.dice.entity.Simulation;
 import com.assignment.dice.services.SimulationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 
 @Service
 public class SimulationServiceImpl implements SimulationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimulationServiceImpl.class);
 
     @Autowired
     private SimulationRepository simulationRepository;
@@ -33,6 +37,7 @@ public class SimulationServiceImpl implements SimulationService {
 
     @Override
     public Set<DistributionDTO> getRelativeDistribution(Integer noOfDices, Integer noOfSlides){
+        LOGGER.debug("getRelativeDistribution method called with: no of dices {}, no of slides {}",noOfDices,noOfSlides);
         return simulationRepository.getRelativeDistribution(noOfDices, noOfSlides);
     }
 

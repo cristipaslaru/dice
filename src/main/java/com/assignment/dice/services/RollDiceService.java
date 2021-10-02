@@ -1,9 +1,10 @@
 package com.assignment.dice.services;
 
-import com.assignment.dice.dtos.RollDice;
+import com.assignment.dice.dtos.RollDiceDTO;
+import com.assignment.dice.entity.RollDice;
 
 import java.util.List;
 
 public interface RollDiceService {
-    List<RollDice> getSumPerRotations(Integer diceNo, Integer slideNo, Integer iteretions);
+    List<RollDiceDTO> getSumPerSimulations(Integer noOfDices, Integer noOfSlides, Integer noOfRolls);
 }

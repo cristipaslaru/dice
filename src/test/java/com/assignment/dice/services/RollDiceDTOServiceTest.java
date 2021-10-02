@@ -1,6 +1,6 @@
 package com.assignment.dice.services;
 
-import com.assignment.dice.dtos.RollDice;
+import com.assignment.dice.dtos.RollDiceDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,18 +12,19 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RollDiceServiceTest {
+public class RollDiceDTOServiceTest {
 
     @Autowired
     private RollDiceService rollDiceService;
 
     @Test
     public void validateRotationNo(){
-        List<RollDice> results = rollDiceService.getSumPerRotations(3, 6, 100);
-        Integer sum = results.stream().map(RollDice::getTotal).reduce(Integer::sum).orElse(null);
+        List<RollDiceDTO> results = rollDiceService.getSumPerSimulations(3, 6, 100);
+        Integer sum = results.stream().map(RollDiceDTO::getOccurrenceNo).reduce(Integer::sum).orElse(null);
         Assert.assertEquals(Integer.valueOf(100),sum);
 
-        long count = results.stream().map(RollDice::getSum).filter(val -> val < 19).filter(val -> val > 2).count();
-        Assert.assertEquals(results.stream().map(RollDice::getSum).count(),count);
+        long count = results.stream().map(RollDiceDTO::getSumOfDices).filter(val -> val < 19).filter(val -> val > 2).count();
+        Assert.assertEquals(results.stream().map(RollDiceDTO::getSumOfDices).count(),count);
     }
+
 }
